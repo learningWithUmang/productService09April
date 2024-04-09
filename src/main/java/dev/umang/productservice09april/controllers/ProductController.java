@@ -1,6 +1,9 @@
 package dev.umang.productservice09april.controllers;
 
 import dev.umang.productservice09april.models.Product;
+import dev.umang.productservice09april.services.FakeStoreProductService;
+import dev.umang.productservice09april.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProductController {
+    /*
+    ProductService productService
+     */
     /*
     POST /products/
     Request body
@@ -18,6 +24,13 @@ public class ProductController {
         "category":
         "price"
      }
+     */
+    ProductService productService;
+    public ProductController(@Qualifier("fakestore") ProductService productService){
+        this.productService = productService;
+    }
+    /*
+    Qualifier is used to identify the depedency to be injected here
      */
     @PostMapping("/products")
     public void createProduct(){
@@ -32,12 +45,15 @@ public class ProductController {
      */
     @GetMapping("/products/{id}")
     public Product getProductDetails(@PathVariable("id") int id){
-        return new Product();
+        /*
+        1 - > directly make a call fakestore api
+        2 - > productService.getProductDetails()
+         */
+        return productService.getSingleProduct(id);
     }
 
     @GetMapping("/products")
     public void getAllProducts(){
-
     }
 
 
