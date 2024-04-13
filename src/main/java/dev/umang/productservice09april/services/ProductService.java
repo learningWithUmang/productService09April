@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface ProductService {
-    Product getSingleProduct(int productId);
+    Product getSingleProduct(Long productId);
     List<Product> getAllProducts();
     Product createProduct(String title,
                   String description,
-                  int price,
-                  Category category,
-                  String imageURL
+                  double price,
+                  String category,
+                  String image
                   );
 }
