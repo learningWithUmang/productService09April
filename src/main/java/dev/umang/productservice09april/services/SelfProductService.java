@@ -4,6 +4,7 @@ import dev.umang.productservice09april.models.Category;
 import dev.umang.productservice09april.models.Product;
 import dev.umang.productservice09april.repositories.CategoryRepository;
 import dev.umang.productservice09april.repositories.ProductRepository;
+import dev.umang.productservice09april.repositories.projections.ProductProjection;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,10 +48,19 @@ public class SelfProductService implements ProductService{
 
     @Override
     public Product getSingleProduct(Long productId) {
-        return null;
+        return productRepository.findByIdIs(productId);
     }
     @Override
     public List<Product> getAllProducts() {
-        return null;
+        return productRepository.findAll();
+    }
+
+    /*
+
+     */
+    public List<Product> getProductsByCategory(String category_name){
+        List<ProductProjection> prd = productRepository.findAllProductsByCategoryNameAndProductPrice("abc", 90);
+        //prd.get(0).getTitle();
+        return productRepository.findAllByCategory_Title(category_name);
     }
 }
